@@ -1,0 +1,10 @@
+langchain_community
+python_dotenv
+openai
+langchain_openai
+pinecone
+google
+google-api-python-client
+grpcio
+protoc_gen_openapiv2
+streamlit
