@@ -1,2 +1,3 @@
 venv
 embedded_movies.json
+.env
