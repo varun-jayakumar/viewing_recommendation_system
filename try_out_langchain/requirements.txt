@@ -1,0 +1,5 @@
+langchain
+python-dotenv
+google-search-results
+pydantic
+langchain-community
