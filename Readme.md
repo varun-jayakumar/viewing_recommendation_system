@@ -1,5 +1,6 @@
 # Viewing Recommendation System - Retrieval-Augmented Generation
 
+**Checkout the report here: https://github.com/varun-jayakumar/viewing_recommendation_system/blob/main/report.pdf**
 **Check out the video on youtube: https://www.youtube.com/watch?v=SHPHw-bd3sw**
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/SHPHw-bd3sw/0.jpg)](https://www.youtube.com/watch?v=SHPHw-bd3sw)
