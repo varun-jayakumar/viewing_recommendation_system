@@ -32,13 +32,13 @@ def queryVectorDB(vector, parsed_output, top_k = 10):
     elif parsed_output.imdb == -1 and parsed_output.year != -1:
         if parsed_output.year_greaterthan:
             # write query to query by > than imdb
-            result = index.query(vector = vector, top_k=top_k, filter = {"year": {"$gte": parsed_output.imdb }},include_metadata = True,  namespace = "moviePlot")
+            result = index.query(vector = vector, top_k=top_k, filter = {"year": {"$gte": parsed_output.year }},include_metadata = True,  namespace = "moviePlot")
         elif parsed_output.year_lessthan:
             # write query to qery by < than imdb
-            result = index.query(vector = vector, top_k=top_k, filter = {"year": {"$lte": parsed_output.imdb }},include_metadata = True,  namespace = "moviePlot")
+            result = index.query(vector = vector, top_k=top_k, filter = {"year": {"$lte": parsed_output.year }},include_metadata = True,  namespace = "moviePlot")
         elif parsed_output.year_equal:
             # write query for equal
-            result = index.query(vector = vector, top_k=top_k, filter = {"year": {"$eq": parsed_output.imdb }},include_metadata = True,  namespace = "moviePlot")
+            result = index.query(vector = vector, top_k=top_k, filter = {"year": {"$eq": parsed_output.year }},include_metadata = True,  namespace = "moviePlot")
         else:
             # just query by prompt
             result = index.query(vector = vector, top_k=top_k, include_metadata = True)

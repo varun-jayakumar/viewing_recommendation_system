@@ -6,7 +6,7 @@ load_dotenv()
 
 jina_api_key = os.environ["JINA_APIKEY"]
 
-def rerank_documents(result, query, top_n=3):
+def rerank_documents(result, query, top_n=2):
 
     documents = []
     document_dict = {}

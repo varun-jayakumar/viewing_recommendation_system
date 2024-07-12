@@ -15,7 +15,7 @@ import re
 load_dotenv()
 open_api_key = os.environ["OPEN_API_KEY"]
 
-llm = ChatOpenAI(model="gpt-3.5-turbo-0125", api_key=open_api_key)
+llm = ChatOpenAI(model="gpt-3.5-turbo-16k", api_key=open_api_key)
 chat_history = []
 
 def add_to_chat_history(role, message):
@@ -26,7 +26,7 @@ def get_contextualized_query(query):
     contextualize_q_system_prompt = """Given a chat history and the latest user question \
     which might reference context in the chat history, formulate a standalone question - first person \
     which can be understood without the chat history - do not loose details mentioned in the user question - question must be in first person. Do NOT answer the question, \
-    just reformulate it if needed and otherwise return it as is. (i.e User query question like hi can left as it is)"""
+    just reformulate it if needed and otherwise return it as is. (i.e User query question like hi can left as it is) keep imdb and year if mentione din the question"""
 
     contextualize_q_prompt = ChatPromptTemplate.from_messages(
         [
@@ -129,11 +129,12 @@ def generate_response(query, ranked_result, chat_history):
     # chat_history: {chat_history}                                                                                      
     # """)
     prompt_template = PromptTemplate.from_template("""
-    if query is a greeting of any sort, respond with "Hello! I'm your personal movie recommendation assistant. What kind of movie are you in the mood for today?"
-    Answer the query based on Data Provided in context and chat_history below without mentioning about the presence context in answer, if not able to find answer from context - say I am not able to find answer for the quesiton. If asked anything outside of movies say I am a movie assistant, I can only help you with movie suggestions.
-
-    Answer question in format of:
-
+    
+    Answer the query based on Data Provided in only context and chat_history below without mentioning about the presence context in answer, if not able to find answer from context - say "I am not able to find answer for the quesiton". If asked anything outside of movies say I am a movie assistant, I can only help you with movie suggestions.
+if query is a greeting of any sort, respond with "Hello! I'm your personal movie recommendation assistant. What kind of movie are you in the mood for today?"
+   if able to find relavent correct answer:
+    \n Answer question in format of (if you are able to find anything if not say "I am not able to find answer for the quesiton"):
+                                                   
     ### title (year)
 
     **IMDb Rating:** imdb rating
@@ -145,14 +146,19 @@ def generate_response(query, ranked_result, chat_history):
     - cast_1
     - cast_2
     - cast_3
-    - cast 4
-
+    - cast_4
+     \n
+    else:
+        if IMDB rating or year is not match the criteria in query):
+        Answer format: "I am not able to find answer for the quesiton"
+    
     Check how many suggestions are requested by user in query and provide appropriate suggestions.
 
     Query: {query}
     Context: {data}
 
     chat_history: {chat_history}
+                                                   
     """)
 
 
