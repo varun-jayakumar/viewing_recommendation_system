@@ -112,9 +112,17 @@ def extract_metadata(context_query):
 
 def fetch_movies(extracted_plot, parsed_output):
     extracted_plot_vector = get_embeddings(extracted_plot)
-    query_response = queryVectorDB(extracted_plot_vector, parsed_output, 10)
+    query_response = queryVectorDB(extracted_plot_vector, parsed_output, 1)
     query_result = query_response["matches"]
-    ranked_result = rerank_documents(query_result, extracted_plot)
+    actual_result = []
+    for item in query_result:
+       if(item["score"] > 0.8):
+            actual_result.append(item)
+    if len(actual_result) != 0:
+        ranked_result = rerank_documents(query_result, extracted_plot)
+    else:
+        ranked_result = actual_result
+        
     return ranked_result
 
 def generate_response(query, ranked_result, chat_history):
@@ -205,7 +213,7 @@ def main():
 
 
     # User input
-    if user_query := st.chat_input("Recommend me a Action movie with imdb rating abouve 7"):
+    if user_query := st.chat_input("Recommend me a Action movie with imdb rating above 7"):
         
         # Display user message in chat message container
         with st.chat_message("user", avatar="🧑‍💻"):

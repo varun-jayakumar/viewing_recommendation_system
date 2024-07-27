@@ -8,7 +8,7 @@ pc = Pinecone(api_key=pine_cone_api_key)
 index = pc.Index("movies")
 
 
-def queryVectorDB(vector, parsed_output, top_k = 10):
+def queryVectorDB(vector, parsed_output, top_k = 3):
     if parsed_output.imdb == -1 and parsed_output.imdb == -1:
     # direclt query for plot only
         result = index.query(vector = vector, top_k=top_k, include_metadata = True, namespace = "moviePlot")
