@@ -112,7 +112,7 @@ def extract_metadata(context_query):
 
 def fetch_movies(extracted_plot, parsed_output):
     extracted_plot_vector = get_embeddings(extracted_plot)
-    query_response = queryVectorDB(extracted_plot_vector, parsed_output, 1)
+    query_response = queryVectorDB(extracted_plot_vector, parsed_output, 3)
     query_result = query_response["matches"]
     actual_result = []
     for item in query_result:
